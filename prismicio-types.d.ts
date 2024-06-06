@@ -232,7 +232,10 @@ interface PageDocumentData {
 export type PageDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<PageDocumentData>, "page", Lang>;
 
-type ProjectDocumentDataSlicesSlice = ImageBlockSlice | TextBlockSlice;
+type ProjectDocumentDataSlicesSlice =
+  | DiscordSlice
+  | ImageBlockSlice
+  | TextBlockSlice;
 
 /**
  * Content for Project documents
@@ -651,6 +654,61 @@ export type ContactIndexSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Primary content in *Links → Primary*
+ */
+export interface DiscordSliceDefaultPrimary {
+  /**
+   * Live field in *Links → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: discord.primary.link
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  link: prismic.LinkField;
+
+  /**
+   * Git field in *Links → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: discord.primary.dis
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  dis: prismic.LinkField;
+}
+
+/**
+ * Default variation for Links Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type DiscordSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<DiscordSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Links*
+ */
+type DiscordSliceVariation = DiscordSliceDefault;
+
+/**
+ * Links Shared Slice
+ *
+ * - **API ID**: `discord`
+ * - **Description**: Discord
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type DiscordSlice = prismic.SharedSlice<
+  "discord",
+  DiscordSliceVariation
+>;
+
+/**
  * Primary content in *Experience → Primary*
  */
 export interface EducationSliceDefaultPrimary {
@@ -996,6 +1054,10 @@ declare module "@prismicio/client" {
       ContactIndexSliceDefaultPrimary,
       ContactIndexSliceVariation,
       ContactIndexSliceDefault,
+      DiscordSlice,
+      DiscordSliceDefaultPrimary,
+      DiscordSliceVariation,
+      DiscordSliceDefault,
       EducationSlice,
       EducationSliceDefaultPrimary,
       EducationSliceDefaultItem,
