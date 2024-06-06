@@ -1,12 +1,13 @@
 import Bounded from "@/components/Bounded";
 import Heading from "@/components/Heading";
-import { Content } from "@prismicio/client";
+import { Content, RichTextField } from "@prismicio/client";
 import { PrismicRichText, SliceComponentProps } from "@prismicio/react";
+import { ReactElement, JSXElementConstructor, ReactNode, ReactPortal, PromiseLikeOfReactNode, Key } from "react";
 
 /**
  * Props for `Experience`.
  */
-export type ExperienceProps = SliceComponentProps<Content.ExperienceSlice>;
+export type ExperienceProps = SliceComponentProps<any>;
 
 /**
  * Component for "Experience" Slices.
@@ -20,7 +21,7 @@ const Experience = ({ slice }: ExperienceProps): JSX.Element => {
       <Heading as="h2" size="lg">
         {slice.primary.heading}
       </Heading>
-      {slice.items.map((item, index) => (
+      {slice.items.map((item: { title: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | PromiseLikeOfReactNode | null | undefined; time_period: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | PromiseLikeOfReactNode | null | undefined; institution: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | PromiseLikeOfReactNode | null | undefined; description: RichTextField | null | undefined; }, index: Key | null | undefined) => (
         <div key={index} className="ml-6 mt-8 max-w-prose md:ml-12 md:mt-16">
           <Heading as="h3" size="sm">
             {item.title}
